@@ -14,3 +14,4 @@ Suggests: knitr,
 VignetteBuilder: knitr
 URL: https://github.com/lwjohnst86/ggepi
 BugReports: https://github.com/lwjohnst86/ggepi/issues
+RoxygenNote: 6.0.1
