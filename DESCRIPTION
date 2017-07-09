@@ -1,9 +1,16 @@
 Package: ggepi
-Title: What the Package Does (one line, title case)
+Title: ggplot2 Extensions for Visualizing Epidemiological Analyses (Chronic Diseases)
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Luke", "Johnston", email = "lwjohnst@gmail.com", role = c("aut", "cre"))
+Description: Layers to extend ggplot2 with visualizations in epidemiological analyses 
+    (specifically for chronic disease).
 Depends: R (>= 3.4.0)
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Suggests: knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+URL: https://github.com/lwjohnst86/ggepi
+BugReports: https://github.com/lwjohnst86/ggepi/issues
