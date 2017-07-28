@@ -1,7 +1,5 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -25,7 +23,7 @@ analyses in (chronic disease) epidemiology.
 
 Install the developmental version using:
 
-```{r}
+```{r, eval=FALSE}
 install.packages("devtools")
 devtools::install_github("lwjohnst86/ggepi")
 ```
