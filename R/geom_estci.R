@@ -25,8 +25,8 @@
 #' fit <- transform(fit, model = "non-log", p.value = discrete_pvalue(fit$p.value))
 #'
 #' p <- ggplot(fit, aes(x = estimate, y = term, xmin = conf.low, xmax = conf.high))
-#' p
 #' p + geom_estci()
+#'
 #' p + geom_estci(aes(xintercept = 1.1), center.linecolour = "red")
 #' p + geom_estci(aes(size = p.value), linetype = "dotted")
 #' p + geom_estci(aes(colour = p.value, size = p.value), linetype = "dotted")
@@ -34,17 +34,23 @@
 #'   scale_colour_grey(start = 0.75, end = 0)
 #' p + geom_estci(aes(size = p.value, alpha = p.value), linetype = "dotted")
 #' p + geom_estci(aes(size = p.value, alpha = p.value, colour = p.value))
-#' p + geom_estci(aes(alpha = p.value), linetype = "dashed", center.linetype = "solid")
-#' p + geom_estci(aes(alpha = p.value, xintercept = 1), colour = "blue", linetype = "dashed", center.linetype = "solid")
+#' p + geom_estci(aes(alpha = p.value), linetype = "dashed",
+#' center.linetype = "solid")
+#'
+#' p + geom_estci(aes(alpha = p.value, xintercept = 1),
+#' colour = "blue", linetype = "dashed", center.linetype = "solid")
+#'
 #' p + geom_estci(aes(alpha = p.value, xintercept = 1), center.linesize = 1.5)
 #' p + geom_estci(center.linesize = 0.25, height = 1, fatten = 2)
 #' p + geom_estci(center.linesize = 2, height = 0.5, fatten = 8)
 #' p + geom_estci(ci.linesize = 3)
 #' p + geom_estci(aes(size = p.value, colour = p.value), fatten = 2)
 #'
-#' fit_log <- lm(log(Fertility) ~ 0 + Catholic + Agriculture + Examination + Education + Infant.Mortality, data = swiss)
+#' fit_log <- lm(log(Fertility) ~ 0 + Catholic + Agriculture + Examination +
+#'     Education + Infant.Mortality, data = swiss)
 #' fit_log <- tidy(fit_log, conf.int = TRUE)
-#' fit_log <- transform(fit_log, model = "log", p.value = discrete_pvalue(fit_log$p.value))
+#' fit_log <- transform(fit_log, model = "log",
+#'     p.value = discrete_pvalue(fit_log$p.value))
 #' two_fits <- rbind(fit, fit_log)
 #'
 #' p <- ggplot(two_fits, aes(x = estimate, y = term, xmin = conf.low, xmax = conf.high))

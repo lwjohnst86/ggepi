@@ -23,14 +23,16 @@
 #' @examples
 #'
 #' library(broom)
-#' fit <- lm(Fertility ~ 0 + Catholic + Agriculture + Examination + Education + Infant.Mortality, data = swiss)
+#' fit <- lm(Fertility ~ 0 + Catholic + Agriculture + Examination +
+#'     Education + Infant.Mortality, data = swiss)
 #' fit <- tidy(fit, conf.int = TRUE)
 #' fit <- transform(fit, model = "non-log")
 #'
 #' view_estci(fit, xterms = "term")
 #' view_estci(fit, xterms = "term", center.line = 1)
 #'
-#' fit_log <- lm(log(Fertility) ~ 0 + Catholic + Agriculture + Examination + Education + Infant.Mortality, data = swiss)
+#' fit_log <- lm(log(Fertility) ~ 0 + Catholic + Agriculture + Examination +
+#'     Education + Infant.Mortality, data = swiss)
 #' fit_log <- tidy(fit_log, conf.int = TRUE)
 #' fit_log <- transform(fit_log, model = "log")
 #' two_fits <- rbind(fit, fit_log)
