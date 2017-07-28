@@ -46,7 +46,7 @@ view_estci <-
              center.line = 0) {
 
         needed_columns <-
-            setdiff(na.omit(
+            setdiff(stats::na.omit(
                 c(
                     "estimate",
                     "conf.low",
