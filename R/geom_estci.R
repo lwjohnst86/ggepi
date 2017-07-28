@@ -6,6 +6,7 @@
 #'
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_pointrange
+#' @param height Add ends to the confidence intervals.
 #' @param center.linetype The linetype for the center line.
 #' @param center.linecolour Line colour for the center line.
 #' @param center.linesize Line size for the center line.
