@@ -1,6 +1,6 @@
 Package: ggepi
 Title: ggplot2 Extensions for Visualizing Epidemiological Analyses (Chronic Diseases)
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: person("Luke", "Johnston", email = "lwjohnst@gmail.com", role = c("aut", "cre"))
 Description: Layers to extend ggplot2 with visualizations in epidemiological analyses 
     (specifically for chronic disease).
