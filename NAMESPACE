@@ -3,6 +3,5 @@
 export(GeomEstci)
 export(discrete_pvalue)
 export(geom_estci)
-export(view_estci)
 import(ggplot2)
 import(grid)
