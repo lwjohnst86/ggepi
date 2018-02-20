@@ -9,7 +9,7 @@
 Base ggproto classes for ggepi
 }
 \seealso{
-\link[ggplot2]{ggproto}
+\code{\link[ggplot2:ggproto]{ggplot2::ggproto()}}
 }
 \keyword{datasets}
 \keyword{internal}

@@ -11,24 +11,24 @@ geom_estci(mapping = NULL, data = NULL, stat = "identity",
   inherit.aes = TRUE)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If \code{NULL}, the default, the data is inherited from the plot
-   data as specified in the call to \code{\link{ggplot}}.
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A \code{data.frame}, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   \code{\link{fortify}} for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A \code{function} will be called with a single argument,
-   the plot data. The return value must be a \code{data.frame.}, and
-   will be used as the layer data.}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
@@ -36,10 +36,12 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{height}{Add ends to the confidence intervals.}
 
 \item{fatten}{A multiplicative factor used to increase the size of the
 middle bar in \code{geom_crossbar()} and the middle point in
@@ -50,7 +52,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
 \item{center.linetype}{The linetype for the center line.}
 
@@ -63,7 +67,7 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \value{
 Adds a ggplot2 geom layer.
@@ -83,8 +87,8 @@ fit <- tidy(fit, conf.int = TRUE)
 fit <- transform(fit, model = "non-log", p.value = discrete_pvalue(fit$p.value))
 
 p <- ggplot(fit, aes(x = estimate, y = term, xmin = conf.low, xmax = conf.high))
-p
 p + geom_estci()
+
 p + geom_estci(aes(xintercept = 1.1), center.linecolour = "red")
 p + geom_estci(aes(size = p.value), linetype = "dotted")
 p + geom_estci(aes(colour = p.value, size = p.value), linetype = "dotted")
@@ -92,17 +96,23 @@ p + geom_estci(aes(colour = p.value, size = p.value), linetype = "dotted") +
   scale_colour_grey(start = 0.75, end = 0)
 p + geom_estci(aes(size = p.value, alpha = p.value), linetype = "dotted")
 p + geom_estci(aes(size = p.value, alpha = p.value, colour = p.value))
-p + geom_estci(aes(alpha = p.value), linetype = "dashed", center.linetype = "solid")
-p + geom_estci(aes(alpha = p.value, xintercept = 1), colour = "blue", linetype = "dashed", center.linetype = "solid")
+p + geom_estci(aes(alpha = p.value), linetype = "dashed",
+center.linetype = "solid")
+
+p + geom_estci(aes(alpha = p.value, xintercept = 1),
+colour = "blue", linetype = "dashed", center.linetype = "solid")
+
 p + geom_estci(aes(alpha = p.value, xintercept = 1), center.linesize = 1.5)
 p + geom_estci(center.linesize = 0.25, height = 1, fatten = 2)
 p + geom_estci(center.linesize = 2, height = 0.5, fatten = 8)
 p + geom_estci(ci.linesize = 3)
 p + geom_estci(aes(size = p.value, colour = p.value), fatten = 2)
 
-fit_log <- lm(log(Fertility) ~ 0 + Catholic + Agriculture + Examination + Education + Infant.Mortality, data = swiss)
+fit_log <- lm(log(Fertility) ~ 0 + Catholic + Agriculture + Examination +
+    Education + Infant.Mortality, data = swiss)
 fit_log <- tidy(fit_log, conf.int = TRUE)
-fit_log <- transform(fit_log, model = "log", p.value = discrete_pvalue(fit_log$p.value))
+fit_log <- transform(fit_log, model = "log",
+    p.value = discrete_pvalue(fit_log$p.value))
 two_fits <- rbind(fit, fit_log)
 
 p <- ggplot(two_fits, aes(x = estimate, y = term, xmin = conf.low, xmax = conf.high))
