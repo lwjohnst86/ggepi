@@ -1,4 +1,15 @@
 
+#' Geometry for circles in ggforce.
+#'
+#' See [ggforce::geom_circle()].
+#'
+#' @name GeomCircle
+#' @rdname GeomCircle
+#' @keywords internal
+#' @export
+#' @importFrom ggforce GeomCircle
+NULL
+
 # From ggplot2's utilities.
 "%||%" <- ggplot2:::"%||%"
 
