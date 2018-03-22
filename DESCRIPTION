@@ -4,20 +4,23 @@ Version: 0.0.1.9000
 Authors@R: person("Luke", "Johnston", email = "lwjohnst@gmail.com", role = c("aut", "cre"))
 Description: Layers to extend ggplot2 with visualizations in epidemiological analyses 
     (specifically for chronic disease).
-Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-Suggests: knitr,
-    rmarkdown,
-    testthat,
-    broom,
-    pls
-VignetteBuilder: knitr
 URL: https://github.com/lwjohnst86/ggepi
 BugReports: https://github.com/lwjohnst86/ggepi/issues
-RoxygenNote: 6.0.1
-Roxygen: list(markdown = TRUE)
-Imports: ggplot2,
+Depends: 
+    R (>= 3.4.0)
+Imports: 
+    ggplot2,
     grid,
     stats
+Suggests: 
+    broom,
+    knitr,
+    rmarkdown,
+    testthat,
+    pls
+VignetteBuilder: knitr
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
