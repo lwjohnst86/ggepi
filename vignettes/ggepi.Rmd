@@ -46,12 +46,17 @@ packages out yourself and find out what works for you!
 In most cases, showing a figure of some results is more impactful than showing a
 table. Often times in epidemiology, results from analyses are put into a table.
 This is less then ideal for busy researchers, as it takes longer to process and
-understand the results from a table than it is from a figure.
+understand the results from a table than it is from a figure. So, for presenting
+results from a regression type anaylsis (something that creates an estimate and
+a confidence interval) you can use the `geom_estci()` layer.
 
 ```{r lm_model}
 library(broom)
-fit <- lm(Fertility ~ 0 + Catholic + Agriculture + Examination + Education + Infant.Mortality, data = swiss)
+fit <- lm(Fertility ~ 0 + Catholic + Agriculture + Examination + Education + 
+              Infant.Mortality, data = swiss)
 fit <- tidy(fit, conf.int = TRUE)
+# A quick look at the data:
+knitr::kable(fit)
 ```
 
 Using the `geom_estci` layer, you have fine-grained control of what it will look like.
