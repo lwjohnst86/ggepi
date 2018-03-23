@@ -70,7 +70,10 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 Adds a ggplot2 geom layer.
 }
 \description{
-This creates a ggplot2 layer with
+This creates a ggplot2 layer that plots the correlation values of the
+scores for components against the real values, as obtained from
+dimensionality reduction methods. These methods include principal components
+analysis and partial least squares.
 }
 \examples{
 
@@ -93,9 +96,9 @@ p + geom_corr_circle(outer.linetype = "dotted")
 p + geom_corr_circle(inner.linecolour = "blue")
 p + geom_corr_circle(center.linesize = 1)
 p + geom_corr_circle(center.linecolour = "grey50", size = 3)
-p + geom_corr_circle(center.linecolour = "grey50", size = 3)
-p + geom_corr_circle(center.linetype = NA)
-p + geom_corr_circle(outer.linetype = NA)
-p + geom_path(linetype = NA)
+
+# If you want to remove the circle or center lines, use 0.
+p + geom_corr_circle(center.linetype = 0)
+p + geom_corr_circle(outer.linetype = 0)
 
 }
