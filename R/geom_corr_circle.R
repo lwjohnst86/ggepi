@@ -1,6 +1,9 @@
-#' TODO need to complete
+#' Correlation circle plot for dimensionality reduction techniques.
 #'
-#' TODO need to complete
+#' This creates a ggplot2 layer that plots the correlation values of the
+#' scores for components against the real values, as obtained from
+#' dimensionality reduction methods. These methods include principal components
+#' analysis and partial least squares.
 #'
 #' @inheritParams ggplot2::layer
 #' @inheritParams ggplot2::geom_point
@@ -21,15 +24,25 @@
 #' library(pls)
 #' data(yarn)
 #'
-#' .model <- plsr(density ~ NIR, 6, data = yarn, validation = "CV")
-#' fit <- cor(model.matrix(.model), scores(.model)[, 1:2, drop = FALSE])
+#' # Set up data to plot.
+#' fit <- plsr(density ~ NIR, 6, data = yarn, validation = "CV")
+#' fit <- cor(model.matrix(fit), scores(fit)[, 1:2, drop = FALSE])
 #' fit <- as.data.frame(fit)
 #' fit$Variables <- rownames(fit)
 #' rownames(fit) <- NULL
 #' colnames(fit)[1:2] <- c("Comp1", "Comp2")
 #'
-#' ggplot(fit, aes(x = Comp1, y = Comp2)) +
-#' geom_corr_circle()
+#' p <- ggplot(fit, aes(x = Comp1, y = Comp2))
+#' p + geom_corr_circle()
+#' p + geom_corr_circle(outer.linetype = "dotted")
+#' p + geom_corr_circle(inner.linecolour = "blue")
+#' p + geom_corr_circle(center.linesize = 1)
+#' p + geom_corr_circle(center.linecolour = "grey50", size = 3)
+#' p + geom_corr_circle(center.linetype = NA)
+#'
+#' # If you want to remove the circle lines, use 0 instead of NA.
+#' p + geom_corr_circle(outer.linetype = 0)
+#' p + geom_corr_circle(outer.linetype = 0, center.linetype = NA)
 #'
 geom_corr_circle <- function(mapping = NULL,
                        data = NULL,
@@ -191,7 +204,6 @@ GeomCorrcircle <- ggproto(
         ))
     }
 )
-
 
 #         ggrepel::geom_text_repel(
 #             data = fit,
