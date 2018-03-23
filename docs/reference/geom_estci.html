@@ -18,13 +18,21 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Horizontal point and line range with vertical center line. — geom_estci" />
+
+<meta property="og:description" content="Useful to visualize results from regression type analyses, as it shows the
+estimate, confidence interval, and optionally use the value of the p.value
+to highlight significant associations. A vertical line is included" />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,24 +55,28 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">ggepi</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">ggepi</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.1.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../articles/ggepi.html">Get Started</a>
+  <a href="../articles/ggepi.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -87,6 +99,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Horizontal point and line range with vertical center line.</h1>
+    <small>Source: <a href='https://github.com/lwjohnst86/ggepi/blob/master/R/geom_estci.R'><code>R/geom_estci.R</code></a></small>
     </div>
 
     
@@ -101,28 +114,28 @@ to highlight significant associations. A vertical line is included</p>
   <span class='kw'>center.linecolour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>center.linesize</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>ci.linesize</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mapping</th>
-      <td><p>Set of aesthetic mappings created by <code>aes</code> or
-<code>aes_</code>. If specified and <code>inherit.aes = TRUE</code> (the
+      <td><p>Set of aesthetic mappings created by <code>aes()</code> or
+<code>aes_()</code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
     <tr>
       <th>data</th>
       <td><p>The data to be displayed in this layer. There are three
-   options:</p>
+options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-   data as specified in the call to <code>ggplot</code>.</p>
+data as specified in the call to <code>ggplot()</code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   <code>fortify</code> for which variables will be created.</p>
+data. All objects will be fortified to produce a data frame. See
+<code>fortify()</code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
-   the plot data. The return value must be a <code>data.frame.</code>, and
-   will be used as the layer data.</p></td>
+the plot data. The return value must be a <code>data.frame.</code>, and
+will be used as the layer data.</p></td>
     </tr>
     <tr>
       <th>stat</th>
@@ -136,10 +149,14 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed on to <code>layer</code>. These are
+      <td><p>other arguments passed on to <code>layer()</code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>color = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
+    </tr>
+    <tr>
+      <th>height</th>
+      <td><p>Add ends to the confidence intervals.</p></td>
     </tr>
     <tr>
       <th>fatten</th>
@@ -156,7 +173,9 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></td>
       <th>show.legend</th>
       <td><p>logical. Should this layer be included in the legends?
 <code>NA</code>, the default, includes if any aesthetics are mapped.
-<code>FALSE</code> never includes, and <code>TRUE</code> always includes.</p></td>
+<code>FALSE</code> never includes, and <code>TRUE</code> always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.</p></td>
     </tr>
     <tr>
       <th>center.linetype</th>
@@ -179,7 +198,7 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></td>
       <td><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code>borders</code>.</p></td>
+the default plot specification, e.g. <code>borders()</code>.</p></td>
     </tr>
     </table>
     
@@ -190,27 +209,35 @@ the default plot specification, e.g. <code>borders</code>.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>library</span>(<span class='no'>ggplot2</span>)</div><div class='output co'>#&gt; <span class='message'>Want to understand how all the pieces fit together? Buy the ggplot2</span>
-#&gt; <span class='message'>book: http://ggplot2.org/book/</span></div><div class='input'><span class='fu'>library</span>(<span class='no'>broom</span>)
+<span class='fu'>library</span>(<span class='no'>ggplot2</span>)
+<span class='fu'>library</span>(<span class='no'>broom</span>)
 
-<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>Fertility</span> ~ <span class='fl'>0</span> + <span class='no'>Catholic</span> + <span class='no'>Agriculture</span> + <span class='no'>Examination</span> + <span class='no'>Education</span> + <span class='no'>Infant.Mortality</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>swiss</span>)
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>Fertility</span> ~ <span class='fl'>0</span> + <span class='no'>Catholic</span> + <span class='no'>Agriculture</span> + <span class='no'>Examination</span> +
+<span class='no'>Education</span> + <span class='no'>Infant.Mortality</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>swiss</span>)
 <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/broom/topics/tidy'>tidy</a></span>(<span class='no'>fit</span>, <span class='kw'>conf.int</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>fit</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"non-log"</span>, <span class='kw'>p.value</span> <span class='kw'>=</span> <span class='fu'><a href='discrete_pvalue.html'>discrete_pvalue</a></span>(<span class='no'>fit</span>$<span class='no'>p.value</span>))
 
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>fit</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>estimate</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>term</span>, <span class='kw'>xmin</span> <span class='kw'>=</span> <span class='no'>conf.low</span>, <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='no'>conf.high</span>))
-<span class='no'>p</span></div><div class='img'><img src='geom_estci-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>()</div><div class='img'><img src='geom_estci-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='fl'>1.1</span>), <span class='kw'>center.linecolour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='geom_estci-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dotted"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='geom_estci-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dotted"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='geom_estci-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dotted"</span>) +
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_grey'>scale_colour_grey</a></span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='geom_estci-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dotted"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='geom_estci-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>p.value</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='geom_estci-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>, <span class='kw'>center.linetype</span> <span class='kw'>=</span> <span class='st'>"solid"</span>)</div><div class='img'><img src='geom_estci-9.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>, <span class='kw'>center.linetype</span> <span class='kw'>=</span> <span class='st'>"solid"</span>)</div><div class='img'><img src='geom_estci-10.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>center.linesize</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='img'><img src='geom_estci-11.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='kw'>center.linesize</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='geom_estci-12.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='kw'>center.linesize</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>8</span>)</div><div class='img'><img src='geom_estci-13.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='kw'>ci.linesize</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='img'><img src='geom_estci-14.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Using size for a discrete variable is not advised.</span></div><div class='img'><img src='geom_estci-15.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
-<span class='no'>fit_log</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='fu'>log</span>(<span class='no'>Fertility</span>) ~ <span class='fl'>0</span> + <span class='no'>Catholic</span> + <span class='no'>Agriculture</span> + <span class='no'>Examination</span> + <span class='no'>Education</span> + <span class='no'>Infant.Mortality</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>swiss</span>)
+<span class='no'>p</span> + <span class='fu'>geom_estci</span>()</div><div class='img'><img src='geom_estci-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='fl'>1.1</span>), <span class='kw'>center.linecolour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='geom_estci-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dotted"</span>)</div><div class='img'><img src='geom_estci-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dotted"</span>)</div><div class='img'><img src='geom_estci-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dotted"</span>) +
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_grey'>scale_colour_grey</a></span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='img'><img src='geom_estci-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dotted"</span>)</div><div class='img'><img src='geom_estci-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>p.value</span>))</div><div class='img'><img src='geom_estci-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>,
+<span class='kw'>center.linetype</span> <span class='kw'>=</span> <span class='st'>"solid"</span>)</div><div class='img'><img src='geom_estci-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='fl'>1</span>),
+<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>, <span class='kw'>center.linetype</span> <span class='kw'>=</span> <span class='st'>"solid"</span>)</div><div class='img'><img src='geom_estci-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>center.linesize</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='img'><img src='geom_estci-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='kw'>center.linesize</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='geom_estci-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='kw'>center.linesize</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>8</span>)</div><div class='img'><img src='geom_estci-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='kw'>ci.linesize</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='img'><img src='geom_estci-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_estci</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p.value</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>p.value</span>), <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='geom_estci-14.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>fit_log</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='fu'>log</span>(<span class='no'>Fertility</span>) ~ <span class='fl'>0</span> + <span class='no'>Catholic</span> + <span class='no'>Agriculture</span> + <span class='no'>Examination</span> +
+    <span class='no'>Education</span> + <span class='no'>Infant.Mortality</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>swiss</span>)
 <span class='no'>fit_log</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/broom/topics/tidy'>tidy</a></span>(<span class='no'>fit_log</span>, <span class='kw'>conf.int</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>fit_log</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>fit_log</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"log"</span>, <span class='kw'>p.value</span> <span class='kw'>=</span> <span class='fu'><a href='discrete_pvalue.html'>discrete_pvalue</a></span>(<span class='no'>fit_log</span>$<span class='no'>p.value</span>))
+<span class='no'>fit_log</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>fit_log</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"log"</span>,
+    <span class='kw'>p.value</span> <span class='kw'>=</span> <span class='fu'><a href='discrete_pvalue.html'>discrete_pvalue</a></span>(<span class='no'>fit_log</span>$<span class='no'>p.value</span>))
 <span class='no'>two_fits</span> <span class='kw'>&lt;-</span> <span class='fu'>rbind</span>(<span class='no'>fit</span>, <span class='no'>fit_log</span>)
 
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>two_fits</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>estimate</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>term</span>, <span class='kw'>xmin</span> <span class='kw'>=</span> <span class='no'>conf.low</span>, <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='no'>conf.high</span>))
 <span class='co'># It might be possible to show groups with 'dodging', but it is currently in development.</span>
 <span class='co'># p + geom_estci(aes(group = model, colour = model), position = position_dodge(width = 0.3))</span>
-<span class='no'>p</span> + <span class='fu'>geom_estci</span>()</div><div class='img'><img src='geom_estci-16.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_estci</span>()</div><div class='img'><img src='geom_estci-15.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>two_fits</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>estimate</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>term</span>, <span class='kw'>xmin</span> <span class='kw'>=</span> <span class='no'>conf.low</span>, <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='no'>conf.high</span>))
-<span class='no'>p</span> + <span class='fu'>geom_estci</span>() + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/facet_grid'>facet_grid</a></span>(~ <span class='no'>model</span>)</div><div class='img'><img src='geom_estci-17.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_estci</span>() + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/facet_grid'>facet_grid</a></span>(~ <span class='no'>model</span>)</div><div class='img'><img src='geom_estci-16.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -232,7 +259,7 @@ the default plot specification, e.g. <code>borders</code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -240,3 +267,4 @@ the default plot specification, e.g. <code>borders</code>.</p></td>
 
   </body>
 </html>
+
