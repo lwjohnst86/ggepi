@@ -97,9 +97,56 @@ other regression function, so they do a lot of internal data wrangling and
 managing. 
 
 
-# Correlation circle
+# Dimensionality reduction techniques
 
+## Correlation circle
 
+For dimensionality reduction techniques, often it is useful to look at the
+correlation circle plots. These plots show the correlation between the original
+values and the scores (or component scores or components or factors) to get a
+sense of what is going on in the data. So, let's set up the data.
+
+```{r pls_model}
+library(pls)
+data(yarn)
+# Set up data to plot. We need to manually calculate the correlations and then
+# wrangle the results into the appropriate form (with components columns and the
+# variable name column)
+fit <- plsr(density ~ NIR, data = yarn)
+fit <- cor(model.matrix(fit), scores(fit)[, 1:2, drop = FALSE])
+fit <- as.data.frame(fit)
+fit$Variables <- rownames(fit)
+rownames(fit) <- NULL
+colnames(fit)[1:2] <- c("Comp1", "Comp2")
+
+# A quick look at the results:
+knitr::kable(head(fit))
+```
+
+And we can plot it using:
+
+```{r corr_circle}
+p <- ggplot(fit, aes(x = Comp1, y = Comp2))
+p + geom_corr_circle()
+```
+
+And to customize it:
+
+```{r custom_corr_circle}
+p + geom_corr_circle(
+    size = 1,
+    colour = "grey50",
+    outer.linesize = 0.5,
+    inner.linesize = 0.5,
+    center.linecolour = "grey",
+    center.linesize = 0.3
+    ) +
+    theme_classic()
+```
+
+If you want to add text to the "highly correlated" variables, I suggest using 
+the [ggrepel::geom_text_repel()](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html)
+functions. They are really useful!
 
 ## Similar packages
 
