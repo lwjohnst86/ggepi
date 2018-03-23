@@ -1,14 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-ggepi
-=====
 
-[![Travis-CI Build Status](https://travis-ci.org/lwjohnst86/ggepi.svg?branch=master)](https://travis-ci.org/lwjohnst86/ggepi)
+# ggepi
 
-The goal of ggepi is to provide the tools to easily visualize commonly performed analyses in (chronic disease) epidemiology.
+[![Travis-CI Build
+Status](https://travis-ci.org/lwjohnst86/ggepi.svg?branch=master)](https://travis-ci.org/lwjohnst86/ggepi)
 
-Installation
-============
+The main goal of the ggepi package is to provide ggplot2 layers for
+common statistical graphics (at least in chronic disease epidemiology
+and at least what I use often). The ggepi package is as hands off as
+possible. This package assumes what you want to plot is what you want to
+plot, and lets you have full control over how the plot of the results
+looks like.
+
+# Installation
 
 Install the developmental version using:
 
@@ -16,3 +21,8 @@ Install the developmental version using:
 install.packages("devtools")
 devtools::install_github("lwjohnst86/ggepi")
 ```
+
+# Usage
+
+Check out the [website](http://ggepi.lukewjohnston.com) for more details
+on usage.
