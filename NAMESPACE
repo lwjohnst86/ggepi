@@ -3,7 +3,7 @@
 export(GeomCorrcircle)
 export(GeomEstci)
 export(discrete_pvalue)
-export(geom_corrcircle)
+export(geom_corr_circle)
 export(geom_estci)
 import(ggplot2)
 import(grid)
