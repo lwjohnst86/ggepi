@@ -2,7 +2,9 @@
 title: "Introduction to ggepi"
 author: "Luke W. Johnston"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+    rmarkdown::html_vignette:
+        toc: true
 vignette: >
   %\VignetteIndexEntry{Introduction to ggepi}
   %\VignetteEngine{knitr::rmarkdown}
