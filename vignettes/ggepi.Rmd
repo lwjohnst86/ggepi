@@ -24,33 +24,47 @@ library(ggplot2)
 library(ggepi)
 ```
 
-## Estimates and confidence intervals from regression models
+The main aim of the ggepi package is to provide ggplot2 layers for common
+statistical presentations (at least in epidemiology and at least what I use
+often). The ggepi package is as hands off as possible. This package assumes what
+you want to plot is what you want to plot, and lets you have full control over
+how the plot of the results looks like. When it comes to your data or results
+you want to plot, all of the work is done by you and done before plotting. The 
+reason I created this package and these functions is because many of the other
+packages that have similar functionality assume too many things about what data
+you want to plot and how the plot will look... and it is very difficult to change
+how these settings. The other thing about other packages is that they don't make
+use of ggplot2 ability to [extend and add layers](https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html).
+This package creates new geom layers that provide all the full customizability of
+ggplot2 in a convenient wrapper for common ways of plotting certain types of
+results. There are of course trade offs to this different way of doing things!
+After each section there is a list of similar packages. Try the different
+packages out yourself and find out what works for you!
+
+# Estimates and confidence intervals from regression models
 
 In most cases, showing a figure of some results is more impactful than showing a
 table. Often times in epidemiology, results from analyses are put into a table.
 This is less then ideal for busy researchers, as it takes longer to process and
-understand the results from a table than it is from a figure. So
+understand the results from a table than it is from a figure.
 
-```{r}
+```{r lm_model}
 library(broom)
 fit <- lm(Fertility ~ 0 + Catholic + Agriculture + Examination + Education + Infant.Mortality, data = swiss)
 fit <- tidy(fit, conf.int = TRUE)
 ```
 
-```{r}
-view_estci(fit)
-```
+Using the `geom_estci` layer, you have fine-grained control of what it will look like.
 
-If you want more fine-grained control, you can use the `geom_estci` layer directly. 
-
-```{r}
+```{r basic_estci}
 ggplot(fit, aes(x = estimate, y = term, xmin = conf.low, xmax = conf.high)) +
     geom_estci()
 ```
 
-There is a utility function `discrete_pvalue` to convert a numeric p-value into a factor, which makes it easier to visualize the results. So:
+There is a utility function `discrete_pvalue` to convert a numeric p-value into
+a factor, which makes it easier to visualize the results. So:
 
-```{r}
+```{r discrete_pval}
 fit2 <- transform(fit, p.value = discrete_pvalue(fit$p.value))
 
 p <- ggplot(fit2, aes(x = estimate, y = term, xmin = conf.low, xmax = conf.high,
@@ -60,16 +74,17 @@ p + geom_estci(fatten = 1, center.linetype = "dotted")
 
 We can add ends to the error bars too.
 
-```{r}
+```{r misc_edits_estci}
 p + geom_estci(fatten = 1, center.linetype = "dotted", height = 0.5, linetype = "dashed")
 ```
 
 All of the power of ggplot2 is available to customize the `geom_estci` layer.
-Check out the documentation for the `geom_estci` function as well as the ggplot2
-layers e.g. `geom_pointrange` or `geom_point` for full customization. Since this
-is a ggplot2 object, you can add to it all you want, like using `facet_grids`.
+Check out the documentation for the `geom_estci` function (via `?`) as well as
+the ggplot2 layers e.g. `geom_pointrange` or `geom_point` for full
+customization. Since this is a ggplot2 object, you can add to it all you want,
+like using `facet_grids`.
 
-# Similar packages
+## Similar packages
 
 There are a few packages that have similar functionality as the e.g.
 `geom_estci`, but each has its own specific use cases:
@@ -79,8 +94,24 @@ There are a few packages that have similar functionality as the e.g.
 
 In both of these packages, they assume you'll plot *directly* from the `lm` or
 other regression function, so they do a lot of internal data wrangling and
-managing. The ggepi package is as hands off as possible when it comes to your
-data you plan to plot, so all of the work in getting the data ready for the 
-figure must be done before hand. This package assumes what you want to plot is
-what you want to plot, nothing more. There are trade offs to both ways of doing
-things! Try the different packages out yourself and find out what works for you!
+managing. 
+
+
+# Correlation circle
+
+
+
+## Similar packages
+
+These other packages have similar functionality.
+
+- [ggbiplot](https://github.com/vqv/ggbiplot) package
+- [factoextra](https://github.com/kassambara/factoextra) package
+- `biplot.princomp()` function in base R
+
+However, these packages again assume you are plotting directly from a `prcomp()`
+or `pls::plsr()` output, so they do a lot of internal data wrangling. Sometimes
+you may want more control over what data is plotted. Customizing the display of
+the plots from these other packages or functions can also be a bit difficult.
+Here, ggepi is as hands off as possible. You have control over what is plotted
+and how it looks.
