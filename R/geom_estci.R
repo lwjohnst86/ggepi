@@ -20,7 +20,8 @@
 #' library(ggplot2)
 #' library(broom)
 #'
-#' fit <- lm(Fertility ~ 0 + Catholic + Agriculture + Examination + Education + Infant.Mortality, data = swiss)
+#' fit <- lm(Fertility ~ 0 + Catholic + Agriculture + Examination +
+#' Education + Infant.Mortality, data = swiss)
 #' fit <- tidy(fit, conf.int = TRUE)
 #' fit <- transform(fit, model = "non-log", p.value = discrete_pvalue(fit$p.value))
 #'
