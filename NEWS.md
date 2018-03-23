@@ -1,3 +1,7 @@
+# ggepi 0.0.1.9000
+
+* Added `geom_corr_circle` layer (#3) for PLS and PCA type results.
+
 # ggepi 0.0.1
 
 * Created a [pkgdown](https://hadley.github.io/pkgdown/index.html) site for the package.
