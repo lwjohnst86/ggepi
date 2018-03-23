@@ -38,11 +38,10 @@
 #' p + geom_corr_circle(inner.linecolour = "blue")
 #' p + geom_corr_circle(center.linesize = 1)
 #' p + geom_corr_circle(center.linecolour = "grey50", size = 3)
-#' p + geom_corr_circle(center.linetype = NA)
 #'
-#' # If you want to remove the circle lines, use 0 instead of NA.
+#' # If you want to remove the circle or center lines, use 0.
+#' p + geom_corr_circle(center.linetype = 0)
 #' p + geom_corr_circle(outer.linetype = 0)
-#' p + geom_corr_circle(outer.linetype = 0, center.linetype = NA)
 #'
 geom_corr_circle <- function(mapping = NULL,
                        data = NULL,
