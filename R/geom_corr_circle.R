@@ -29,9 +29,9 @@
 #' colnames(fit)[1:2] <- c("Comp1", "Comp2")
 #'
 #' ggplot(fit, aes(x = Comp1, y = Comp2)) +
-#' geom_corrcircle()
+#' geom_corr_circle()
 #'
-geom_corrcircle <- function(mapping = NULL,
+geom_corr_circle <- function(mapping = NULL,
                        data = NULL,
                        stat = "identity",
                        position = "identity",
@@ -182,7 +182,7 @@ GeomCorrcircle <- ggproto(
         )
         data_vline <- unique(data_vline)
 
-        ggplot2:::ggname("geom_corrcircle", grid::grobTree(
+        ggplot2:::ggname("geom_corr_circle", grid::grobTree(
             GeomSegment$draw_panel(data_hline, panel_params, coord),
             GeomSegment$draw_panel(data_vline, panel_params, coord),
             GeomPath$draw_panel(data_outer_circle, panel_params, coord),
