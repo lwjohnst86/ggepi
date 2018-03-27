@@ -211,13 +211,16 @@ GeomCorrcircle <- ggproto(
         )
         data_vline <- unique(data_vline)
 
-        ggplot2:::ggname("geom_corr_circle", grid::grobTree(
-            GeomSegment$draw_panel(data_hline, panel_params, coord),
-            GeomSegment$draw_panel(data_vline, panel_params, coord),
-            GeomPath$draw_panel(data_outer_circle, panel_params, coord),
-            GeomPath$draw_panel(data_inner_circle, panel_params, coord),
-            GeomPoint$draw_panel(data, panel_params, coord)
-        ))
+        ggplot2:::ggname(
+            "geom_corr_circle",
+            grid::grobTree(
+                GeomPoint$draw_panel(data, panel_params, coord),
+                GeomSegment$draw_panel(data_hline, panel_params, coord),
+                GeomSegment$draw_panel(data_vline, panel_params, coord),
+                GeomPath$draw_panel(data_inner_circle, panel_params, coord),
+                GeomPath$draw_panel(data_outer_circle, panel_params, coord)
+            )
+        )
     }
 )
 
