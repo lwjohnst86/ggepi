@@ -7,10 +7,10 @@
 geom_corr_circle(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
   outer.linetype = "solid", outer.linecolour = "black",
-  outer.linesize = 1, inner.linetype = "dashed",
-  inner.linecolour = "black", inner.linesize = 1,
-  center.linetype = "solid", center.linecolour = "black",
-  center.linesize = 0.5, inherit.aes = TRUE)
+  outer.linesize = 0.5, inner.linetype = "dotted",
+  inner.linecolour = "black", inner.linesize = 0.5,
+  center.linetype = "solid", center.linecolour = "grey50",
+  center.linesize = 0.3, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -89,6 +89,7 @@ fit <- as.data.frame(fit)
 fit$Variables <- rownames(fit)
 rownames(fit) <- NULL
 colnames(fit)[1:2] <- c("Comp1", "Comp2")
+fit$Groups <- as.factor(sample.int(2, nrow(fit), replace = TRUE))
 
 p <- ggplot(fit, aes(x = Comp1, y = Comp2))
 p + geom_corr_circle()
@@ -100,5 +101,17 @@ p + geom_corr_circle(center.linecolour = "grey50", size = 3)
 # If you want to remove the circle or center lines, use 0.
 p + geom_corr_circle(center.linetype = 0)
 p + geom_corr_circle(outer.linetype = 0)
+
+# With grouping
+p + geom_corr_circle(aes(colour = Groups))
+p + geom_corr_circle(aes(colour = Groups), size = 3) +
+scale_colour_brewer()
+p + geom_corr_circle(aes(alpha = Groups))
+p + geom_corr_circle(aes(size = Groups))
+p + geom_corr_circle(aes(shape = Groups), size = 2)
+
+# With facets
+p + geom_corr_circle() +
+facet_grid(~ Groups)
 
 }
