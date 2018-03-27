@@ -128,7 +128,7 @@ colnames(fit)[1:2] <- c("Comp1", "Comp2")
 knitr::kable(head(fit))
 ```
 
-And we can plot it using:
+And we can plot it using `geom_corr_circle()`:
 
 ```{r corr_circle}
 p <- ggplot(fit, aes(x = Comp1, y = Comp2))
