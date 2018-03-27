@@ -230,7 +230,7 @@ GeomCorrcircle <- ggproto(
 #         )
 
 
-circle_data <-
+util_circle_data <-
     function(radius = 1,
              center = c(0, 0),
              npoints = 100) {
