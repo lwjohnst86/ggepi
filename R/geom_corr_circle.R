@@ -159,9 +159,10 @@ GeomCorrcircle <- ggproto(
                           center.linesize = NA
                           ) {
 
-        outer_circle <- circle_data(1, npoints = nrow(data))
+        outer_circle <- util_circle_data(1, npoints = nrow(data))
         data_outer_circle <- transform(
             data,
+            group = -1,
             x = outer_circle$x,
             y = outer_circle$y,
             linetype = data$outer.linetype,
@@ -170,9 +171,10 @@ GeomCorrcircle <- ggproto(
             size = data$outer.linesize
         )
 
-        inner_circle <- circle_data(sqrt(1 / 2), npoints = nrow(data))
+        inner_circle <- util_circle_data(sqrt(1 / 2), npoints = nrow(data))
         data_inner_circle <- transform(
             data,
+            group = -1,
             x = inner_circle$x,
             y = inner_circle$y,
             linetype = data$inner.linetype,
@@ -183,6 +185,7 @@ GeomCorrcircle <- ggproto(
 
         data_hline <- transform(
             data,
+            group = -1,
             x = -1,
             y = 0,
             xend = 1,
@@ -196,6 +199,7 @@ GeomCorrcircle <- ggproto(
 
         data_vline <- transform(
             data,
+            group = -1,
             x = 0,
             y = -1,
             xend = 0,
