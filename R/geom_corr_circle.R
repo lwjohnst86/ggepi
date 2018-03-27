@@ -129,7 +129,7 @@ GeomCorrcircle <- ggproto(
             params$outer.linesize %||% 0.5
 
         data$inner.linetype <- data$inner.linetype %||%
-            params$inner.linetype %||% "dashed"
+            params$inner.linetype %||% "dotted"
         data$inner.linecolour <- data$inner.linecolour %||%
             params$inner.linecolour %||% "black"
         data$inner.linesize <- data$inner.linesize %||%
@@ -138,14 +138,14 @@ GeomCorrcircle <- ggproto(
         data$center.linetype <- data$center.linetype %||%
             params$center.linetype %||% "solid"
         data$center.linecolour <- data$center.linecolour %||%
-            params$center.linecolour %||% "black"
+            params$center.linecolour %||% "grey50"
         data$center.linesize <- data$center.linesize %||%
-            params$center.linesize %||% 0.5
+            params$center.linesize %||% 0.3
 
         data
     },
 
-    draw_group = function(data,
+    draw_panel = function(data,
                           panel_params,
                           coord,
                           outer.linetype = NA,
